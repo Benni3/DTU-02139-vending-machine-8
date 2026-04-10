@@ -19,22 +19,22 @@ class VendingMachine extends Module {
     val price = io.sw
     val sum = RegInit(0.U(8.W))
 
-    val coin2Pressed = 0.u
-    val coin5Pressed = 0.u
-    val buyPressed = 0.u
+    val coin2Pressed = 0.U
+    val coin5Pressed = 0.U
+    val buyPressed = 0.U
 
     when(coin2 & !coin2Pressed){ // Rising edge detection
         coin2Pressed := 1.U
-        sum = sum + 2
+        sum := sum + 2.U
     } .elsewhen(!coin2 & coin2Pressed) { // Falling Edge detection
-        coin2Pressed := 0
+        coin2Pressed := 0.U
     }
 
     when(coin5 & !coin5Pressed) {  // Rising edge detection
       coin5Pressed := 1.U
-      sum = sum + 5
+      sum := sum + 5.U  
     } .elsewhen(!coin5 & coin5Pressed) { // Falling Edge detection
-      coin5Pressed := 0
+      coin5Pressed := 0.U
     }
     
 
