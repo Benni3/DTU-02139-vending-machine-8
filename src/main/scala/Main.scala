@@ -14,7 +14,7 @@ class VendingMachine extends Module {
     sum := sum + io.coin2 + io.coin5
 
     ////// price afhænger af basys 3 input (kodes seneere )
-    val price = Mux(io.sel === 0.U, 2.U, Mux(io.sel === 1.U, 5.U, 8.U))
+    val price = 5.W
     io.alarm := 0.U
     io.releaseCan := 0.U
 
@@ -26,4 +26,5 @@ class VendingMachine extends Module {
                 io.alarm := 1.U
         }
 
+        
     }
