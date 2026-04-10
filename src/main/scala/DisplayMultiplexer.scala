@@ -12,20 +12,19 @@ class DisplayMultiplexer(maxCount: Int) extends Module {
   val sevSeg = WireDefault("b1111111".U(7.W))
   val select = WireDefault("b0001".U(4.W))
 
-// *** your code starts here
+  // ***** your code starts here *****
 
-  // Counter register
   val refreshCounter = RegInit(0.U(log2Ceil(maxCount).W))
   val digitSel = RegInit(0.U(2.W))
 
-  // 4 digits (4-bit each)
   val digits = Wire(Vec(4, UInt(4.W)))
+  val currentNibble = WireDefault(0.U(4.W))
 
-  // Rightmost two displays = sum, leftmost two = price
-  digits(0) := io.price(3, 0)      // rightmost
-  digits(1) := io.price(7, 4)
-  digits(2) := io.sum(3, 0)
-  digits(3) := io.sum(7, 4)    // leftmost
+  // rightmost two = sum, leftmost two = price
+  digits(0) := io.sum(3, 0)
+  digits(1) := io.sum(7, 4)
+  digits(2) := io.price(3, 0)
+  digits(3) := io.price(7, 4)
 
   when(refreshCounter === (maxCount - 1).U) {
     refreshCounter := 0.U
@@ -34,12 +33,18 @@ class DisplayMultiplexer(maxCount: Int) extends Module {
     refreshCounter := refreshCounter + 1.U
   }
 
-  val currentNibble = Wire(UInt(4.W))
-  currentNibble := digits(digitSel)
+  switch(digitSel) {
+    is(0.U) { currentNibble := digits(0) }
+    is(1.U) { currentNibble := digits(1) }
+    is(2.U) { currentNibble := digits(2) }
+    is(3.U) { currentNibble := digits(3) }
+  }
 
-  val decoder = Module(new SevenSegDec)
-  decoder.io.in := currentNibble
-  sevSeg := decoder.io.out
+  val decoder = Module(new SevenSegDecoder)
+  decoder.io.sw := currentNibble
+
+  // decoder.io.seg is already active-low, so invert it back internally
+  sevSeg := ~decoder.io.seg
 
   switch(digitSel) {
     is(0.U) { select := "b0001".U }
@@ -48,7 +53,7 @@ class DisplayMultiplexer(maxCount: Int) extends Module {
     is(3.U) { select := "b1000".U }
   }
 
-  // *** your code ends here
+  // ***** your code ends here *****
 
   io.seg := ~sevSeg
   io.an := ~select
