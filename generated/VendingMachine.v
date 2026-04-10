@@ -121,14 +121,11 @@ module VendingMachine(
   input        clock,
   input        reset,
   input        io_buy, // @[src/main/scala/Main.scala 6:16]
-  input  [2:0] io_sel, // @[src/main/scala/Main.scala 6:16]
   input        io_coin5, // @[src/main/scala/Main.scala 6:16]
   input        io_coin2, // @[src/main/scala/Main.scala 6:16]
-  input  [4:0] io_sw, // @[src/main/scala/Main.scala 6:16]
-  output       io_led1, // @[src/main/scala/Main.scala 6:16]
-  output       io_led2, // @[src/main/scala/Main.scala 6:16]
-  output [7:0] io_alarm, // @[src/main/scala/Main.scala 6:16]
-  output [7:0] io_releaseCan, // @[src/main/scala/Main.scala 6:16]
+  input  [4:0] io_price, // @[src/main/scala/Main.scala 6:16]
+  output       io_alarm, // @[src/main/scala/Main.scala 6:16]
+  output       io_releaseCan, // @[src/main/scala/Main.scala 6:16]
   output [6:0] io_seg, // @[src/main/scala/Main.scala 6:16]
   output [3:0] io_an // @[src/main/scala/Main.scala 6:16]
 );
@@ -137,33 +134,47 @@ module VendingMachine(
   reg [31:0] _RAND_1;
   reg [31:0] _RAND_2;
   reg [31:0] _RAND_3;
+  reg [31:0] _RAND_4;
+  reg [31:0] _RAND_5;
+  reg [31:0] _RAND_6;
+  reg [31:0] _RAND_7;
 `endif // RANDOMIZE_REG_INIT
-  wire  display_clock; // @[src/main/scala/Main.scala 73:25]
-  wire  display_reset; // @[src/main/scala/Main.scala 73:25]
-  wire [7:0] display_io_sum; // @[src/main/scala/Main.scala 73:25]
-  wire [7:0] display_io_price; // @[src/main/scala/Main.scala 73:25]
-  wire [6:0] display_io_seg; // @[src/main/scala/Main.scala 73:25]
-  wire [3:0] display_io_an; // @[src/main/scala/Main.scala 73:25]
-  reg [7:0] sum; // @[src/main/scala/Main.scala 27:22]
-  reg  coin2Pressed; // @[src/main/scala/Main.scala 30:31]
-  reg  coin5Pressed; // @[src/main/scala/Main.scala 31:31]
-  reg  buyPressed; // @[src/main/scala/Main.scala 32:31]
-  wire [7:0] _sum_T_1 = sum + 8'h2; // @[src/main/scala/Main.scala 43:20]
-  wire  _GEN_0 = ~io_coin2 & coin2Pressed ? 1'h0 : coin2Pressed; // @[src/main/scala/Main.scala 44:43 45:22 30:31]
-  wire  _GEN_1 = io_coin2 & ~coin2Pressed | _GEN_0; // @[src/main/scala/Main.scala 41:37 42:22]
-  wire [7:0] _GEN_2 = io_coin2 & ~coin2Pressed ? _sum_T_1 : sum; // @[src/main/scala/Main.scala 41:37 43:13 27:22]
-  wire [7:0] _sum_T_3 = sum + 8'h5; // @[src/main/scala/Main.scala 51:20]
-  wire  _GEN_3 = ~io_coin5 & coin5Pressed ? 1'h0 : coin5Pressed; // @[src/main/scala/Main.scala 52:43 53:22 31:31]
-  wire  _GEN_4 = io_coin5 & ~coin5Pressed | _GEN_3; // @[src/main/scala/Main.scala 49:37 50:22]
-  wire [7:0] _GEN_5 = io_coin5 & ~coin5Pressed ? _sum_T_3 : _GEN_2; // @[src/main/scala/Main.scala 49:37 51:13]
-  wire [7:0] _GEN_14 = {{3'd0}, io_sw}; // @[src/main/scala/Main.scala 60:18]
-  wire  _T_10 = sum >= _GEN_14; // @[src/main/scala/Main.scala 60:18]
-  wire  _GEN_8 = sum >= _GEN_14 ? 1'h0 : 1'h1; // @[src/main/scala/Main.scala 36:13 60:28 65:17]
-  wire  _GEN_9 = ~io_buy & buyPressed ? 1'h0 : buyPressed; // @[src/main/scala/Main.scala 68:39 69:20 32:31]
-  wire  _GEN_10 = io_buy & ~buyPressed | _GEN_9; // @[src/main/scala/Main.scala 57:33 58:20]
-  wire  _GEN_11 = io_buy & ~buyPressed & _T_10; // @[src/main/scala/Main.scala 35:13 57:33]
-  wire  _GEN_13 = io_buy & ~buyPressed & _GEN_8; // @[src/main/scala/Main.scala 36:13 57:33]
-  DisplayMultiplexer display ( // @[src/main/scala/Main.scala 73:25]
+  wire  display_clock; // @[src/main/scala/Main.scala 88:25]
+  wire  display_reset; // @[src/main/scala/Main.scala 88:25]
+  wire [7:0] display_io_sum; // @[src/main/scala/Main.scala 88:25]
+  wire [7:0] display_io_price; // @[src/main/scala/Main.scala 88:25]
+  wire [6:0] display_io_seg; // @[src/main/scala/Main.scala 88:25]
+  wire [3:0] display_io_an; // @[src/main/scala/Main.scala 88:25]
+  reg [7:0] sum; // @[src/main/scala/Main.scala 21:22]
+  reg  coin2Pressed; // @[src/main/scala/Main.scala 23:31]
+  reg  coin5Pressed; // @[src/main/scala/Main.scala 24:31]
+  reg  buyPressed; // @[src/main/scala/Main.scala 25:31]
+  reg [28:0] releaseCounter; // @[src/main/scala/Main.scala 27:33]
+  reg [28:0] alarmCounter; // @[src/main/scala/Main.scala 28:33]
+  reg  releaseActive; // @[src/main/scala/Main.scala 30:32]
+  reg  alarmActive; // @[src/main/scala/Main.scala 31:32]
+  wire [7:0] _sum_T_1 = sum + 8'h2; // @[src/main/scala/Main.scala 38:20]
+  wire  _GEN_0 = ~io_coin2 & coin2Pressed ? 1'h0 : coin2Pressed; // @[src/main/scala/Main.scala 39:43 40:22 23:31]
+  wire  _GEN_1 = io_coin2 & ~coin2Pressed | _GEN_0; // @[src/main/scala/Main.scala 36:37 37:22]
+  wire [7:0] _GEN_2 = io_coin2 & ~coin2Pressed ? _sum_T_1 : sum; // @[src/main/scala/Main.scala 36:37 38:13 21:22]
+  wire [7:0] _sum_T_3 = sum + 8'h5; // @[src/main/scala/Main.scala 46:20]
+  wire  _GEN_3 = ~io_coin5 & coin5Pressed ? 1'h0 : coin5Pressed; // @[src/main/scala/Main.scala 47:43 48:22 24:31]
+  wire  _GEN_4 = io_coin5 & ~coin5Pressed | _GEN_3; // @[src/main/scala/Main.scala 44:37 45:22]
+  wire [7:0] _GEN_5 = io_coin5 & ~coin5Pressed ? _sum_T_3 : _GEN_2; // @[src/main/scala/Main.scala 44:37 46:13]
+  wire [7:0] _GEN_26 = {{3'd0}, io_price}; // @[src/main/scala/Main.scala 55:18]
+  wire  _GEN_6 = sum >= _GEN_26 | releaseActive; // @[src/main/scala/Main.scala 55:35 56:27 30:32]
+  wire [28:0] _GEN_7 = sum >= _GEN_26 ? 29'h11e1a300 : releaseCounter; // @[src/main/scala/Main.scala 55:35 57:28 27:33]
+  wire  _GEN_9 = sum >= _GEN_26 ? alarmActive : 1'h1; // @[src/main/scala/Main.scala 31:32 55:35 60:25]
+  wire [28:0] _GEN_10 = sum >= _GEN_26 ? alarmCounter : 29'h11e1a300; // @[src/main/scala/Main.scala 28:33 55:35 61:26]
+  wire  _GEN_11 = ~io_buy & buyPressed ? 1'h0 : buyPressed; // @[src/main/scala/Main.scala 63:39 64:20 25:31]
+  wire  _GEN_12 = io_buy & ~buyPressed | _GEN_11; // @[src/main/scala/Main.scala 52:33 53:20]
+  wire  _GEN_13 = io_buy & ~buyPressed ? _GEN_6 : releaseActive; // @[src/main/scala/Main.scala 30:32 52:33]
+  wire [28:0] _GEN_14 = io_buy & ~buyPressed ? _GEN_7 : releaseCounter; // @[src/main/scala/Main.scala 27:33 52:33]
+  wire  _GEN_16 = io_buy & ~buyPressed ? _GEN_9 : alarmActive; // @[src/main/scala/Main.scala 31:32 52:33]
+  wire [28:0] _GEN_17 = io_buy & ~buyPressed ? _GEN_10 : alarmCounter; // @[src/main/scala/Main.scala 28:33 52:33]
+  wire [28:0] _releaseCounter_T_1 = releaseCounter - 29'h1; // @[src/main/scala/Main.scala 72:46]
+  wire [28:0] _alarmCounter_T_1 = alarmCounter - 29'h1; // @[src/main/scala/Main.scala 81:42]
+  DisplayMultiplexer display ( // @[src/main/scala/Main.scala 88:25]
     .clock(display_clock),
     .reset(display_reset),
     .io_sum(display_io_sum),
@@ -171,42 +182,84 @@ module VendingMachine(
     .io_seg(display_io_seg),
     .io_an(display_io_an)
   );
-  assign io_led1 = io_buy & ~buyPressed & _T_10; // @[src/main/scala/Main.scala 35:13 57:33]
-  assign io_led2 = io_buy & ~buyPressed & _GEN_8; // @[src/main/scala/Main.scala 36:13 57:33]
-  assign io_alarm = {{7'd0}, _GEN_13};
-  assign io_releaseCan = {{7'd0}, _GEN_11};
-  assign io_seg = display_io_seg; // @[src/main/scala/Main.scala 77:12]
-  assign io_an = display_io_an; // @[src/main/scala/Main.scala 78:12]
+  assign io_alarm = alarmActive; // @[src/main/scala/Main.scala 86:14]
+  assign io_releaseCan = releaseActive; // @[src/main/scala/Main.scala 85:19]
+  assign io_seg = display_io_seg; // @[src/main/scala/Main.scala 92:12]
+  assign io_an = display_io_an; // @[src/main/scala/Main.scala 93:12]
   assign display_clock = clock;
   assign display_reset = reset;
-  assign display_io_sum = sum; // @[src/main/scala/Main.scala 74:20]
-  assign display_io_price = {{3'd0}, io_sw}; // @[src/main/scala/Main.scala 75:22]
+  assign display_io_sum = sum; // @[src/main/scala/Main.scala 89:20]
+  assign display_io_price = {{3'd0}, io_price}; // @[src/main/scala/Main.scala 90:22]
   always @(posedge clock) begin
-    if (reset) begin // @[src/main/scala/Main.scala 27:22]
-      sum <= 8'h0; // @[src/main/scala/Main.scala 27:22]
-    end else if (io_buy & ~buyPressed) begin // @[src/main/scala/Main.scala 57:33]
-      if (sum >= _GEN_14) begin // @[src/main/scala/Main.scala 60:28]
-        sum <= 8'h0; // @[src/main/scala/Main.scala 63:13]
+    if (reset) begin // @[src/main/scala/Main.scala 21:22]
+      sum <= 8'h0; // @[src/main/scala/Main.scala 21:22]
+    end else if (io_buy & ~buyPressed) begin // @[src/main/scala/Main.scala 52:33]
+      if (sum >= _GEN_26) begin // @[src/main/scala/Main.scala 55:35]
+        sum <= 8'h0; // @[src/main/scala/Main.scala 58:17]
       end else begin
         sum <= _GEN_5;
       end
     end else begin
       sum <= _GEN_5;
     end
-    if (reset) begin // @[src/main/scala/Main.scala 30:31]
-      coin2Pressed <= 1'h0; // @[src/main/scala/Main.scala 30:31]
+    if (reset) begin // @[src/main/scala/Main.scala 23:31]
+      coin2Pressed <= 1'h0; // @[src/main/scala/Main.scala 23:31]
     end else begin
       coin2Pressed <= _GEN_1;
     end
-    if (reset) begin // @[src/main/scala/Main.scala 31:31]
-      coin5Pressed <= 1'h0; // @[src/main/scala/Main.scala 31:31]
+    if (reset) begin // @[src/main/scala/Main.scala 24:31]
+      coin5Pressed <= 1'h0; // @[src/main/scala/Main.scala 24:31]
     end else begin
       coin5Pressed <= _GEN_4;
     end
-    if (reset) begin // @[src/main/scala/Main.scala 32:31]
-      buyPressed <= 1'h0; // @[src/main/scala/Main.scala 32:31]
+    if (reset) begin // @[src/main/scala/Main.scala 25:31]
+      buyPressed <= 1'h0; // @[src/main/scala/Main.scala 25:31]
     end else begin
-      buyPressed <= _GEN_10;
+      buyPressed <= _GEN_12;
+    end
+    if (reset) begin // @[src/main/scala/Main.scala 27:33]
+      releaseCounter <= 29'h0; // @[src/main/scala/Main.scala 27:33]
+    end else if (releaseActive) begin // @[src/main/scala/Main.scala 68:25]
+      if (releaseCounter == 29'h0) begin // @[src/main/scala/Main.scala 69:38]
+        releaseCounter <= _GEN_14;
+      end else begin
+        releaseCounter <= _releaseCounter_T_1; // @[src/main/scala/Main.scala 72:28]
+      end
+    end else begin
+      releaseCounter <= _GEN_14;
+    end
+    if (reset) begin // @[src/main/scala/Main.scala 28:33]
+      alarmCounter <= 29'h0; // @[src/main/scala/Main.scala 28:33]
+    end else if (alarmActive) begin // @[src/main/scala/Main.scala 77:23]
+      if (alarmCounter == 29'h0) begin // @[src/main/scala/Main.scala 78:36]
+        alarmCounter <= _GEN_17;
+      end else begin
+        alarmCounter <= _alarmCounter_T_1; // @[src/main/scala/Main.scala 81:26]
+      end
+    end else begin
+      alarmCounter <= _GEN_17;
+    end
+    if (reset) begin // @[src/main/scala/Main.scala 30:32]
+      releaseActive <= 1'h0; // @[src/main/scala/Main.scala 30:32]
+    end else if (releaseActive) begin // @[src/main/scala/Main.scala 68:25]
+      if (releaseCounter == 29'h0) begin // @[src/main/scala/Main.scala 69:38]
+        releaseActive <= 1'h0; // @[src/main/scala/Main.scala 70:27]
+      end else begin
+        releaseActive <= _GEN_13;
+      end
+    end else begin
+      releaseActive <= _GEN_13;
+    end
+    if (reset) begin // @[src/main/scala/Main.scala 31:32]
+      alarmActive <= 1'h0; // @[src/main/scala/Main.scala 31:32]
+    end else if (alarmActive) begin // @[src/main/scala/Main.scala 77:23]
+      if (alarmCounter == 29'h0) begin // @[src/main/scala/Main.scala 78:36]
+        alarmActive <= 1'h0; // @[src/main/scala/Main.scala 79:25]
+      end else begin
+        alarmActive <= _GEN_16;
+      end
+    end else begin
+      alarmActive <= _GEN_16;
     end
   end
 // Register and memory initialization
@@ -253,6 +306,14 @@ initial begin
   coin5Pressed = _RAND_2[0:0];
   _RAND_3 = {1{`RANDOM}};
   buyPressed = _RAND_3[0:0];
+  _RAND_4 = {1{`RANDOM}};
+  releaseCounter = _RAND_4[28:0];
+  _RAND_5 = {1{`RANDOM}};
+  alarmCounter = _RAND_5[28:0];
+  _RAND_6 = {1{`RANDOM}};
+  releaseActive = _RAND_6[0:0];
+  _RAND_7 = {1{`RANDOM}};
+  alarmActive = _RAND_7[0:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
