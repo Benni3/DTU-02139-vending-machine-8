@@ -9,7 +9,7 @@ class VendingMachine extends Module {
         val coin2 = Input(Bool())
 
         val sw = Input(UInt(5.W))
-        val led1 = Output(Bool()) // for release can
+        val led1 = Output(Bool()) // for releaseCan
         val led2 = Output(Bool()) // for alarm
 
         val alarm = Output(UInt(8.W))
@@ -19,6 +19,7 @@ class VendingMachine extends Module {
         val an  = Output(UInt(4.W))
 
     })
+
 
     // Calcluate SUM and PRICE
 
