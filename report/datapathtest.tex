@@ -1,0 +1,155 @@
+% Important: If latex complains about unicode characters,
+% please use "\usepackage[utf8x]{inputenc}" in your preamble
+% You can change the size of the picture by putting it into the construct:
+% 1) \resizebox{10cm}{!}{"below picture"} to scale horizontally to 10 cm
+% 2) \resizebox{!}{15cm}{"below picture"} to scale vertically to 15 cm
+% 3) \resizebox{10cm}{15cm}{"below picture"} a combination of above two
+% It is not recomended to use the scale option of the tikzpicture environment.
+\begin{tikzpicture}[x=1pt,y=-1pt,line cap=rect,scale=0.7]
+\def\logisimfontA#1{\fontfamily{cmr}{#1}} % Replaced by logisim, original font was "SansSerif"
+\def\logisimfontB#1{\fontfamily{cmtt}{#1}} % Replaced by logisim, original font was "Monospaced"
+\definecolor{custcol_FF7B00}{HTML}{FF7B00}
+\definecolor{custcol_B2B2B2}{HTML}{B2B2B2}
+\definecolor{custcol_C0C0C0}{HTML}{C0C0C0}
+\definecolor{custcol_FFFFFF}{HTML}{FFFFFF}
+\definecolor{custcol_000000}{HTML}{000000}
+\definecolor{custcol_999999}{HTML}{999999}
+\definecolor{custcol_808080}{HTML}{808080}
+\draw [line width=3pt, custcol_000000] (135,35) -- (175,35);
+\draw [line width=3pt, custcol_FF7B00] (305,25) -| (365,105) -- (405,105);
+\draw [line width=3pt, custcol_000000] (245,65) -| (215,205) -- (245,205);
+\draw [line width=3pt, custcol_000000] (575,55) -- (605,55);
+\draw [line width=4pt, custcol_FF7B00] (405,125) -| (355,165) -- (335,165);
+\draw [line width=4pt, custcol_FF7B00] (305,165) -| (335,85) -| (5,165) -- (75,165);
+\draw [line width=4pt, custcol_FF7B00] (5,115) -- (75,115);
+\fill [line width=4pt, custcol_FF7B00] (5,115) circle (6);
+\fill [line width=4pt, custcol_FF7B00] (335,165) circle (6);
+\fill [line width=4pt, custcol_000000] (215,205) circle (5);
+\draw [line width=2pt, custcol_000000] (255,155) rectangle (295,215);
+\fill [line width=2pt, custcol_000000] (275,215) circle (2);
+\logisimfontA{\fontsize{12pt}{12pt}\selectfont\node[inner sep=0, outer sep=0, custcol_999999, anchor=base west] at  (272,212)  {R};}
+\fill [line width=2pt, custcol_000000] (275,155) circle (2);
+\logisimfontA{\fontsize{12pt}{12pt}\selectfont\node[inner sep=0, outer sep=0, custcol_999999, anchor=base west] at  (272,171)  {S};}
+\draw [line width=3pt, custcol_000000] (195,165) -- (254,165);
+\fill [line width=3pt, custcol_000000] (245,165) circle (2);
+\logisimfontA{\fontsize{12pt}{12pt}\selectfont\node[inner sep=0, outer sep=0, custcol_000000, anchor=base west] at  (259,170)  {D};}
+\draw [line width=2pt, custcol_000000] (256,201) -- (263,205) -- (256,209);
+\draw [line width=2pt, custcol_000000] (245,205) -- (254,205);
+\fill [line width=2pt, custcol_000000] (245,205) circle (2);
+\draw [line width=3pt, custcol_000000] (296,165) -- (305,165);
+\logisimfontA{\fontsize{12pt}{12pt}\selectfont\node[inner sep=0, outer sep=0, custcol_000000, anchor=base west] at  (282,170)  {Q};}
+\fill [line width=3pt, custcol_000000] (305,165) circle (2);
+\draw [line width=2pt, custcol_000000] (300,205) circle (5);
+\fill [line width=2pt, custcol_000000] (305,205) circle (2);
+\draw [line width=2pt, custcol_000000] (255,15) rectangle (295,75);
+\fill [line width=2pt, custcol_000000] (275,75) circle (2);
+\logisimfontA{\fontsize{12pt}{12pt}\selectfont\node[inner sep=0, outer sep=0, custcol_999999, anchor=base west] at  (272,72)  {R};}
+\fill [line width=2pt, custcol_000000] (275,15) circle (2);
+\logisimfontA{\fontsize{12pt}{12pt}\selectfont\node[inner sep=0, outer sep=0, custcol_999999, anchor=base west] at  (272,31)  {S};}
+\draw [line width=3pt, custcol_000000] (205,25) -- (254,25);
+\fill [line width=3pt, custcol_000000] (245,25) circle (2);
+\logisimfontA{\fontsize{12pt}{12pt}\selectfont\node[inner sep=0, outer sep=0, custcol_000000, anchor=base west] at  (259,30)  {D};}
+\draw [line width=2pt, custcol_000000] (256,61) -- (263,65) -- (256,69);
+\draw [line width=2pt, custcol_000000] (245,65) -- (254,65);
+\fill [line width=2pt, custcol_000000] (245,65) circle (2);
+\draw [line width=3pt, custcol_000000] (296,25) -- (305,25);
+\logisimfontA{\fontsize{12pt}{12pt}\selectfont\node[inner sep=0, outer sep=0, custcol_000000, anchor=base west] at  (282,30)  {Q};}
+\fill [line width=3pt, custcol_000000] (305,25) circle (2);
+\draw [line width=2pt, custcol_000000] (300,65) circle (5);
+\fill [line width=2pt, custcol_000000] (305,65) circle (2);
+\draw [line width=2pt, custcol_000000] (405,95) rectangle (445,135);
+\fill [line width=1pt, custcol_000000] (405,105) circle (2);
+\fill [line width=1pt, custcol_000000] (405,125) circle (2);
+\fill [line width=1pt, custcol_000000] (445,105) circle (2);
+\logisimfontA{\fontsize{12pt}{12pt}\selectfont\node[inner sep=0, outer sep=0, custcol_000000, anchor=base west] at  (435,112)  {$\geq$};}
+\fill [line width=1pt, custcol_000000] (445,115) circle (2);
+\logisimfontA{\fontsize{12pt}{12pt}\selectfont\node[inner sep=0, outer sep=0, custcol_000000, anchor=base west] at  (435,122)  {=};}
+\fill [line width=1pt, custcol_000000] (445,125) circle (2);
+\logisimfontA{\fontsize{12pt}{12pt}\selectfont\node[inner sep=0, outer sep=0, custcol_000000, anchor=base west] at  (435,132)  {$\<$};}
+\draw [line width=3pt, custcol_000000] (185,41) -- (185,45);
+\fill [line width=1pt, custcol_C0C0C0] (185,35) circle (3);
+\logisimfontA{\fontsize{12pt}{12pt}\selectfont\node[inner sep=0, outer sep=0, custcol_808080, anchor=base west] at  (178,20)  {0};}
+\draw [line width=2pt, custcol_000000] (175,5) -- (205,15) -- (205,35) -- (175,45) -- cycle;
+\logisimfontA{\fontsize{12pt}{12pt}\selectfont\node[inner sep=0, outer sep=0, custcol_000000, anchor=base west] at  (177,32)  {MUX};}
+\fill [line width=2pt, custcol_000000] (175,15) circle (2);
+\fill [line width=2pt, custcol_000000] (175,35) circle (2);
+\fill [line width=2pt, custcol_000000] (185,45) circle (2);
+\fill [line width=2pt, custcol_000000] (205,25) circle (2);
+\fill [line width=1pt, custcol_B2B2B2] (115,25) -- (132,25) -- (135,28) |- (118,45) -- (115,42) -- cycle;
+\fill [line width=1pt, custcol_FFFFFF] (115,25) rectangle (132,42);
+\draw [line width=1pt, custcol_000000] (115,25) rectangle (132,42);
+\draw [line width=1pt, custcol_000000] (132,42) -- (135,45);
+\draw [line width=1pt, custcol_000000] (115,25) -- (132,25) -- (135,28) |- (118,45) -- (115,42) -- cycle;
+\logisimfontA{\fontsize{16pt}{16pt}\fontseries{bx}\selectfont\node[inner sep=0, outer sep=0, custcol_000000, anchor=base west] at  (74,44)  {Price};}
+\fill [line width=1pt, custcol_000000] (135,35) circle (2);
+\draw [line width=3pt, custcol_000000] (210,245) -| (215,205);
+\draw [line width=2pt, custcol_000000] (175,235) -- (200,235) -- (210,245) -- (200,255) -- (175,255) -- cycle;
+\draw [line width=2pt, custcol_000000] (179,245) |- (185,241) |- (191,249) -- (191,245);
+\fill [line width=2pt, custcol_000000] (215,245) circle (2);
+\draw [line width=3pt, custcol_000000] (555,71) |- (445,105);
+\fill [line width=1pt, custcol_C0C0C0] (555,67) circle (3);
+\logisimfontA{\fontsize{12pt}{12pt}\selectfont\node[inner sep=0, outer sep=0, custcol_808080, anchor=base west] at  (548,50)  {0};}
+\draw [line width=2pt, custcol_000000] (545,35) -- (575,45) -- (575,65) -- (545,75) -- cycle;
+\logisimfontA{\fontsize{12pt}{12pt}\selectfont\node[inner sep=0, outer sep=0, custcol_000000, anchor=base west] at  (547,62)  {MUX};}
+\fill [line width=2pt, custcol_000000] (545,45) circle (2);
+\fill [line width=2pt, custcol_000000] (545,65) circle (2);
+\fill [line width=2pt, custcol_000000] (555,75) circle (2);
+\fill [line width=2pt, custcol_000000] (575,55) circle (2);
+\draw [line width=3pt, custcol_000000] (510,45) -- (545,45);
+\draw [line width=2pt, custcol_000000] (476,36) -- (500,36) -- (510,45) -- (500,54) -- (476,54) -- cycle;
+\logisimfontB{\fontsize{12pt}{12pt}\selectfont\node[inner sep=0, outer sep=0, custcol_000000, anchor=base west] at  (481,52)  {x1};}
+\logisimfontA{\fontsize{16pt}{16pt}\fontseries{bx}\selectfont\node[inner sep=0, outer sep=0, custcol_000000, anchor=base west] at  (424,54)  {Alarm};}
+\fill [line width=2pt, custcol_000000] (515,45) circle (2);
+\draw [line width=3pt, custcol_000000] (510,65) -- (545,65);
+\draw [line width=2pt, custcol_000000] (476,56) -- (500,56) -- (510,65) -- (500,74) -- (476,74) -- cycle;
+\logisimfontB{\fontsize{12pt}{12pt}\selectfont\node[inner sep=0, outer sep=0, custcol_000000, anchor=base west] at  (481,72)  {x1};}
+\logisimfontA{\fontsize{16pt}{16pt}\fontseries{bx}\selectfont\node[inner sep=0, outer sep=0, custcol_000000, anchor=base west] at  (381,74)  {ReleaseCan};}
+\fill [line width=2pt, custcol_000000] (515,65) circle (2);
+\draw [line width=3pt, custcol_000000] (609,55) -- (606,55);
+\draw [line width=2pt, custcol_000000] (611,46) -- (635,46) -- (645,55) -- (635,64) -- (611,64) -- cycle;
+\logisimfontB{\fontsize{12pt}{12pt}\selectfont\node[inner sep=0, outer sep=0, custcol_000000, anchor=base west] at  (611,62)  {x1};}
+\logisimfontA{\fontsize{16pt}{16pt}\fontseries{bx}\selectfont\node[inner sep=0, outer sep=0, custcol_000000, anchor=base west] at  (647,64)  {LED};}
+\fill [line width=2pt, custcol_000000] (605,55) circle (2);
+\draw [line width=3pt, custcol_000000] (175,181) |- (165,215);
+\fill [line width=1pt, custcol_C0C0C0] (175,175) circle (3);
+\logisimfontA{\fontsize{12pt}{12pt}\selectfont\node[inner sep=0, outer sep=0, custcol_808080, anchor=base west] at  (168,160)  {0};}
+\draw [line width=2pt, custcol_000000] (165,145) -- (195,155) -- (195,175) -- (165,185) -- cycle;
+\logisimfontA{\fontsize{12pt}{12pt}\selectfont\node[inner sep=0, outer sep=0, custcol_000000, anchor=base west] at  (167,172)  {MUX};}
+\fill [line width=2pt, custcol_000000] (165,155) circle (2);
+\fill [line width=2pt, custcol_000000] (165,175) circle (2);
+\fill [line width=2pt, custcol_000000] (175,185) circle (2);
+\fill [line width=2pt, custcol_000000] (195,165) circle (2);
+\draw [line width=2pt, custcol_000000] (75,155) rectangle (115,195);
+\fill [line width=1pt, custcol_000000] (75,165) circle (2);
+\fill [line width=1pt, custcol_000000] (115,175) circle (2);
+\fill [line width=1pt, custcol_000000] (95,155) circle (2);
+\logisimfontA{\fontsize{12pt}{12pt}\selectfont\node[inner sep=0, outer sep=0, custcol_999999, anchor=base west] at  (86,171)  {c in};}
+\fill [line width=1pt, custcol_000000] (95,195) circle (2);
+\logisimfontA{\fontsize{12pt}{12pt}\selectfont\node[inner sep=0, outer sep=0, custcol_999999, anchor=base west] at  (82,192)  {c out};}
+\draw [line width=2pt, custcol_000000] (100,175) -- (110,175);
+\draw [line width=2pt, custcol_000000] (105,170) -- (105,180);
+\draw [line width=2pt, custcol_000000] (75,105) rectangle (115,145);
+\fill [line width=1pt, custcol_000000] (75,115) circle (2);
+\fill [line width=1pt, custcol_000000] (115,125) circle (2);
+\fill [line width=1pt, custcol_000000] (95,105) circle (2);
+\logisimfontA{\fontsize{12pt}{12pt}\selectfont\node[inner sep=0, outer sep=0, custcol_999999, anchor=base west] at  (86,121)  {c in};}
+\fill [line width=1pt, custcol_000000] (95,145) circle (2);
+\logisimfontA{\fontsize{12pt}{12pt}\selectfont\node[inner sep=0, outer sep=0, custcol_999999, anchor=base west] at  (82,142)  {c out};}
+\draw [line width=2pt, custcol_000000] (100,125) -- (110,125);
+\draw [line width=2pt, custcol_000000] (105,120) -- (105,130);
+\draw [line width=3pt, custcol_000000] (70,135) -- (75,135);
+\draw [line width=2pt, custcol_000000] (36,126) -- (60,126) -- (70,135) -- (60,144) -- (36,144) -- cycle;
+\logisimfontB{\fontsize{12pt}{12pt}\selectfont\node[inner sep=0, outer sep=0, custcol_000000, anchor=base west] at  (41,142)  {x1};}
+\fill [line width=2pt, custcol_000000] (75,135) circle (2);
+\draw [line width=3pt, custcol_000000] (70,185) -- (75,185);
+\draw [line width=2pt, custcol_000000] (36,176) -- (60,176) -- (70,185) -- (60,194) -- (36,194) -- cycle;
+\logisimfontB{\fontsize{12pt}{12pt}\selectfont\node[inner sep=0, outer sep=0, custcol_000000, anchor=base west] at  (41,192)  {x1};}
+\fill [line width=2pt, custcol_000000] (75,185) circle (2);
+\fill [line width=1pt, custcol_B2B2B2] (145,205) -- (162,205) -- (165,208) |- (148,225) -- (145,222) -- cycle;
+\fill [line width=1pt, custcol_FFFFFF] (145,205) rectangle (162,222);
+\draw [line width=1pt, custcol_000000] (145,205) rectangle (162,222);
+\draw [line width=1pt, custcol_000000] (162,222) -- (165,225);
+\draw [line width=1pt, custcol_000000] (145,205) -- (162,205) -- (165,208) |- (148,225) -- (145,222) -- cycle;
+\logisimfontA{\fontsize{16pt}{16pt}\fontseries{bx}\selectfont\node[inner sep=0, outer sep=0, custcol_000000, anchor=base west] at  (50,224)  {CoinButton};}
+\fill [line width=1pt, custcol_000000] (165,215) circle (2);
+\end{tikzpicture}

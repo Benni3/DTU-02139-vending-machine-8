@@ -1,0 +1,21 @@
+\begin{figure}[h]
+\caption*{Timing af kredsløb: $x$-aksen er markeret i ns.}
+\centering
+\resizebox{1.1\textwidth}{!}{
+\begin{tikztimingtable}
+  $\varphi$    & C 12{2.5C}  \\ 
+  $a$       & 2H 1H 15L 5H 5L 3H\\
+  $b$       & 2H 6H 10L 5H 8L \\ 
+  $c$       & 1L 5L U 14H U 4L U 3H \\ 
+\begin{extracode}
+    \begin{background}
+    \vertlines[help lines]{}
+    \draw [->,>=latex] (0,-\nrows*2+1.5) -- (\twidth+1,-\nrows*2+1.5);
+    \foreach \n in {0,5,...,\twidth}
+        \draw (\n+1,-\nrows+1.5) 
+            node [below,inner sep=32pt] {\scalebox{1}{\tiny\n}};
+    \end{background}
+    %\tablegrid
+\end{extracode}
+\end{tikztimingtable}}
+\end{figure}

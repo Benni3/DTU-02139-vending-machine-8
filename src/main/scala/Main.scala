@@ -8,7 +8,13 @@ class VendingMachine extends Module {
         val coin5 = Input(Bool())
         val coin2 = Input(Bool())
 
+<<<<<<< HEAD
         val price = Input(UInt(5.W))
+=======
+        val sw = Input(UInt(5.W))
+        val led1 = Output(Bool()) // for releaseCan
+        val led2 = Output(Bool()) // for alarm
+>>>>>>> refs/remotes/origin/main
 
         val alarm = Output(Bool())
         val releaseCan = Output(Bool())
@@ -17,7 +23,14 @@ class VendingMachine extends Module {
         val an  = Output(UInt(4.W))
     })
 
+<<<<<<< HEAD
     val currentPrice = io.price
+=======
+
+    // Calcluate SUM and PRICE
+
+    val price = io.sw.asUInt
+>>>>>>> refs/remotes/origin/main
     val sum = RegInit(0.U(8.W))
 
     val coin2Pressed = RegInit(false.B)
