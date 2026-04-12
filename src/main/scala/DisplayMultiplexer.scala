@@ -20,11 +20,18 @@ class DisplayMultiplexer(maxCount: Int) extends Module {
   val digits = Wire(Vec(4, UInt(4.W)))
   val currentNibble = WireDefault(0.U(4.W))
 
+  val priceOnes = io.price % 10.U
+  val priceTens = io.price / 10.U
+
+  val sumOnes = io.sum % 10.U
+  val sumTens = io.sum / 10.U
+
   // rightmost two = sum, leftmost two = price
-  digits(0) := io.sum(3, 0)
-  digits(1) := io.sum(7, 4)
-  digits(2) := io.price(3, 0)
-  digits(3) := io.price(7, 4)
+  digits(0) := priceOnes
+  digits(1) := priceTens
+  digits(2) := sumOnes
+  digits(3) := sumTens
+  
 
   when(refreshCounter === (maxCount - 1).U) {
     refreshCounter := 0.U
