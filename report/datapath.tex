@@ -1,0 +1,66 @@
+
+
+\tikzstyle{block} = [draw, rectangle, minimum width=2cm, minimum height=1.2cm]
+\tikzstyle{mux} = [draw, trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=1.5cm, minimum height=1.5cm]
+\tikzstyle{adder} = [draw, circle, minimum size=1cm]
+\tikzstyle{comp} = [draw, rectangle, minimum width=2cm, minimum height=1.5cm]
+
+
+\begin{tikzpicture}[node distance=2cm]
+
+% Inputs
+\node (price) at (0,2) {price};
+\node (zero) at (0,1) {0};
+
+% MUX (sel)
+\node[mux] (mux1) at (2,1.5) {};
+\node at (2,2.5) {sel};
+
+\draw[->] (price) -- (mux1.west);
+\draw[->] (zero) -- (mux1.west);
+
+% Register
+\node[block, right=of mux1] (reg1) {Reg};
+
+\draw[->] (mux1.east) -- (reg1.west);
+
+% Bottom accumulation path
+\node[adder, below=2cm of reg1] (add1) {+};
+\node at ($(add1.west)+(-1,0)$) {2};
+
+\node[adder, below=1.5cm of add1] (add2) {+};
+\node at ($(add2.west)+(-1,0)$) {5};
+
+% MUX (coin)
+\node[mux, right=of add1] (mux2) {};
+\node at ($(mux2.south)+(0,-0.7)$) {coin};
+
+\node[block, right=of mux2] (reg2) {Reg};
+
+% Connections bottom
+\draw[->] (add1.east) -- (mux2.west);
+\draw[->] (add2.east) -- (mux2.south west);
+\draw[->] (mux2.east) -- (reg2.west);
+
+% Feedback loop
+\draw[->] (reg2.east) |- (add1.north);
+
+% Comparator
+\node[comp, right=3cm of reg1] (comp1) {sum $\ge$ price};
+
+\draw[->] (reg1.east) -- (comp1.west);
+\draw[->] (reg2.north) |- (comp1.south);
+
+% Output mux (release / return)
+\node[mux, right=of comp1] (mux3) {};
+\node at ($(mux3.north)+(0,0.5)$) {if};
+
+\node at ($(mux3.north west)+(-1,0)$) {release};
+\node at ($(mux3.south west)+(-1,0)$) {return};
+
+\draw[->] (comp1.east) -- (mux3.west);
+
+% Output
+\draw[->] (mux3.east) -- ++(1,0);
+
+\end{tikzpicture}

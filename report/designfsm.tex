@@ -1,0 +1,28 @@
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[->,>=stealth',node distance=3cm,every state/.style={thick,fill=gray!10},initial text=start]
+
+\node[state,initial](0) {Idle};
+
+\node[state](1)[above right of=0] {$P+2$};
+\node[state](2)[below right of=0] {$P+5$};
+\node[state](3)[below right of=1] {Check sum};
+\node[state](4)[above right of=3] {Releasecan};
+\node[state](5)[below right of=3] {Alarm};
+
+
+\draw 
+    (0) edge node[above left] {$c_2c_5'$} (1)
+    (0) edge node[below left] {$c_2'c_5$} (2)
+    (1) edge[bend left] node[rotate=90,above] {$c_2'c_5b'$} (2)
+    (2) edge[bend left] node[rotate=-90,above] {$c_2c_5'b'$} (1)
+    (1) edge[loop above] node {$c_2c_5'b'$} (1)
+    (2) edge[loop below] node {$c_2'c_5b'$} (2)
+    (1) edge node[above] {$b$} (3)
+    (2) edge node[below] {$b$} (3)
+    (3) edge node[below] {$x$} (4)
+    (3) edge node[above] {$x'$} (5)
+\end{tikzpicture}
+\caption{State diagram for the vending machine FSM.}
+\label{fig:fsm}
+\end{figure}

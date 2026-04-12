@@ -1,0 +1,74 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper, total={6.4in, 8.75in}]{geometry}
+\usepackage{graphicx}
+\usepackage[hidelinks]{hyperref}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usetikzlibrary{automata,positioning,arrows}
+\usetikzlibrary{arrows.meta, shapes.geometric}
+\usetikzlibrary{arrows,shapes.gates.logic.US,shapes.gates.logic.IEC,calc}
+\tikzstyle{branch}=[fill,shape=circle,minimum size=3pt,inner sep=0pt]
+\usepackage[backend=biber,style=authoryear-ibid]{biblatex}
+\usepackage{svg}
+\usepackage{multicol}
+\usepackage{comment}
+\usepackage{amsfonts}
+%til at fjerne de der tal bag sections uden at den fjerner infholdsfortegnelsen
+%\makeatletter
+%\renewcommand\@seccntformat[1]{}
+%\makeatother
+%\newcommand{\tegntæller}[1]{%
+%\immediate\write18{texcount -1 -sum -merge -char #1.tex > #1-chars.sum }%
+%\input{#1-chars.sum}%
+%}
+%\tegntæller{main}
+\title{vending Machine}
+\author{William Laursen}
+\date{}
+\renewcommand*\contentsname{Indhold}
+%\addbibresource{}
+\newcommand{\mm}{\textbf}
+\newcommand{\dd}{\mathrm{d}}
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\begin{abstract}
+This document presents the design and implementation of a vending machine using Chisel, a hardware description language. The machine is designed to accept coins, display the current sum and price, and release a can when the correct amount is inserted.
+\end{abstract}
+
+\section{Intro}
+\section{Approach}
+\section{Design}
+\subsection{FSM Design}
+
+\input{designfsm.tex}
+Where $b$ is the pressing of buy, in the $P+2$ and $P+5$ states, repectively, $b$ is a "dontcare", therefore it is not labelled. $x$ is rather is the comparator "Check sum" checking if coin amount is grater than the predefined can-price. if $x$ is true it trigges release can, if not Alarm is triggered.
+\subsection{Datapath Design}
+\input{datapathlogisim2.tex}
+\section{Implementation}
+\section{Results}
+\section{Discussion}
+\subsection{Reflection on using AI}
+
+%the abstract is written by AI 
+\section{Conclusion}
+
+\appendix
+\section{code}
+\section{test video}
+\begin{figure}[H]
+\centering
+\includegraphics[angle=0]{./testvideoqr.eps}
+\caption{Video of test on Basys3 board}
+\label{videotestofprod}
+\end{figure}
+
+
+%\printbibliography[heading=none]
+\end{document}
